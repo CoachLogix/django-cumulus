@@ -3,7 +3,7 @@ django-cumulus
 
 ``django-cumulus`` provides a set of tools to utilize the
 `python-swiftclient`_ and `Rackspace Cloud Files API`_ from Django. It
-includes a custom file storage class, SwiftclientFilesStorage.
+includes a custom file storage class, CumulusFilesStorage.
 
 More documentation about the usage and installation of ``django-cumulus``
 can be found on `django-cumulus.readthedocs.org`_.
