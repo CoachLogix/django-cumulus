@@ -194,8 +194,19 @@ class CumulusStorage(Auth, Storage):
             return "{0}/{1}".format(self.get_container_url(name), name)
 
         # get a temporary URL if no CDN url available
-        pyrax.cloudfiles.set_temp_url_key(CUMULUS.get('TEMP_URL_KEY'))
-        return self._get_object(name).get_temp_url(3600)
+        if self.use_pyrax:
+            original_snet = self.use_snet
+            self.connection.set_temp_url_key(CUMULUS.get('TEMP_URL_KEY'))
+
+            if self.use_snet == True:
+                self.use_snet = False
+
+            ret = self._get_object(name).get_temp_url(3600)
+            self.use_snet = original_snet
+        else:
+            ret = self._get_object(name).get_temp_url(3600)
+
+        return ret
 
     def listdir(self, path):
         """
